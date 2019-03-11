@@ -21,6 +21,11 @@ public class CarSaleController {
     @Autowired
     CarSaleService carSaleService;
 
+    @RequestMapping(value = {"/"})
+    public String index(){
+        return "index.html";
+    }
+
 
     /*{"month1":2418065,"month2":3868797,"month3":5987760,"month4":7856250,
     "month5":9706018,"month6":11539911,"month7":13104763,"month8":14853915,"month9":16875492,
