@@ -7,6 +7,7 @@ $(function () {
         dataType: "json",
         success: function (data) {
             console.log(data);
+
         },
         error: function () {
           console.error("Error Sending AJAX Request");
@@ -19,6 +20,8 @@ $(function () {
     echart_4();
     echart_map();
     echart_5();
+
+    console.log("www")
 
     //echart_1左上栏目
     function echart_1() {
