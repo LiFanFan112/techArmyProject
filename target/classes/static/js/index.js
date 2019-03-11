@@ -2,7 +2,7 @@
 $(function () {
 
     $.ajax({
-        url: "localhost:8080/getCarCountrySale",
+        url: "/getCarCountrySale",
         type: "POST",
         dataType: "json",
         success: function (data) {
