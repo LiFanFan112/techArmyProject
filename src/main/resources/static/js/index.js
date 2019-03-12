@@ -19,8 +19,18 @@ $(function () {
         return Math.round(data / 10000);
     }
 
+    function getThousand(data) {
+        if (data instanceof Array) {
+            for (var i = 0; i < data.length; i++) {
+                data[i] = Math.round(data[i] / 1000) / 10;
+            }
+            return data;
+        }
+        return Math.round(data / 1000) / 10;
+    }
+
     $.ajax({
-        url: "/car/TotalSaleMonth",
+        url: "/getAllSaleMonth",
         dataType: "json",
         success: function (data) {
             echart_map(data);
@@ -232,15 +242,19 @@ function echart_map(data) {
 
     var option = {
         title: {
-            text: "全国汽车销量走势图"
+            text: "全国汽车堆积销量",
+            subtext: "每月走势图",
+            x: "center"
         },
         tooltip: {
             trigger: "axis"
         },
         legend: {
-            data: ["汽车销量"]
+            x: "left",
+            data: ["轿车销量", "SUV销量", "MPV销量"]
         },
         toolbox: {
+            show: false,
             feature: {
                 mark: {
                     show: true
@@ -251,7 +265,7 @@ function echart_map(data) {
                 },
                 magicType: {
                     show: false,
-                    type: ["line", "bar"]
+                    type: ["line", "bar", "stack", "tiled"]
                 },
                 restore: {
                     show: true
@@ -265,6 +279,7 @@ function echart_map(data) {
         xAxis: [
             {
                 type: "category",
+                boundaryGap: false,
                 data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
             }
         ],
@@ -275,9 +290,46 @@ function echart_map(data) {
         ],
         series: [
             {
-                name: "汽车销量",
-                type: "bar",
-                data: [data.month1, data.month2, data.month3, data.month4, data.month5, data.month6, data.month7, data.month8, data.month9, data.month10, data.month11, data.month12]
+                name: "轿车销量",
+                type: "line",
+                smooth: false,
+                stack: "总量",
+                itemStyle: {
+                    normal: {
+                        areaStyle: {
+                            type: "default"
+                        }
+                    }
+                },
+                data: getThousand(getCarCountrySaleMonthArray(data[0]))
+            },
+            {
+                name: "SUV销量",
+                type: "line",
+                smooth: false,
+                stack: "总量",
+                itemStyle: {
+                    normal: {
+                        areaStyle: {
+                            type: "default"
+                        }
+                    }
+                },
+                data: getThousand(getCarCountrySaleMonthArray(data[1]))
+            },
+            {
+                name: "MPV销量",
+                type: "line",
+                smooth: false,
+                stack: "总量",
+                itemStyle: {
+                    normal: {
+                        areaStyle: {
+                            type: "default"
+                        }
+                    }
+                },
+                data: getThousand(getCarCountrySaleMonthArray(data[2]))
             }
         ]
     };
@@ -287,62 +339,79 @@ function echart_map(data) {
     window.addEventListener("resize", function () {
         myChart.resize();
     });
-
 }
 
 //echart_3右上栏目
-
 function echart_3(data) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('chart_3'), 'chalk');
-    myChart.clear();
+
     var option =
         {
             title: {
-                text: "价格区间占比图",
+                text: "汽车价格区间",
+                subtext: "占比图",
                 x: "center"
             },
             tooltip: {
                 trigger: "item",
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                formatter: "{b}销量:<br/> {c}万 ({d}%)"
             },
             legend: {
                 orient: "vertical",
                 x: "left",
-                data: ["0-10", "10-15", "15-25", "25-35", "35-50", "50-"]
+                data: ["0-10万", "10-15万", "15-25万", "25-35万", "35-50万", "50万以上"]
             },
-
             calculable: true,
             series: [
                 {
                     name: "汽车销量",
                     type: "pie",
-                    radius: "55%",
-                    center: ["50%", "60%"],
+                    radius: [45, 85],
+                    center: ["50%", "50%"],
+                    roseType: "radius",
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            },
+                            labelLine: {
+                                show: true
+                            }
+                        }
+                    },
                     data: [
                         {
-                            value: data[0].saleAmount,
-                            name: "0-10"
+                            value: getThousand(data[0].saleAmount),
+                            name: "0-10万"
                         },
                         {
-                            value: data[1].saleAmount,
-                            name: "10-15"
+                            value: getThousand(data[1].saleAmount),
+                            name: "10-15万"
                         },
                         {
-                            value: data[2].saleAmount,
-                            name: "15-25"
+                            value: getThousand(data[2].saleAmount),
+                            name: "15-25万"
                         },
                         {
-                            value: data[3].saleAmount,
-                            name: "25-35"
+                            value: getThousand(data[3].saleAmount),
+                            name: "25-35万"
                         },
                         {
-                            value: data[4].saleAmount,
-                            name: "35-50"
+                            value: getThousand(data[4].saleAmount),
+                            name: "35-50万"
                         },
                         {
-                            value: data[5].saleAmount,
-                            name: "50-"
+                            value: getThousand(data[5].saleAmount),
+                            name: "50万以上"
                         }
                     ]
                 }
@@ -355,58 +424,61 @@ function echart_3(data) {
 //右中栏目
 function echart_4(data) {
     // 基于准备好的dom，初始化echarts实例
-
     var myChart = echarts.init(document.getElementById('chart_4'), 'chalk');
 
     var option = {
         title: {
-            text: "价格区间TOP"
+            text: "车辆价格区间",
+            subtext: "Top榜",
+            x: "center"
+        },
+        grid: {
+            x: 75
         },
         tooltip: {
-            trigger: "axis"
+            trigger: "axis",
+            formatter: "{b}{a}:{c}万"
         },
         legend: {
-            data: ["销售量"]
-        },
-        toolbox: {
-            feature: {
-                mark: {
-                    show: true
-                },
-                dataView: {
-                    show: true,
-                    readOnly: true
-                },
-                magicType: {
-                    show: false,
-                    type: ["line", "bar"]
-                },
-                restore: {
-                    show: true
-                },
-                saveAsImage: {
-                    show: true
-                }
-            }
+            data: ["销售量"],
+            x: "left"
         },
         calculable: true,
         xAxis: [
             {
                 type: "value",
-                boundaryGap: [0, 0.01]
+                boundaryGap: [0, "5%"]
             }
         ],
         yAxis: [
             {
                 type: "category",
-                data: ["50-", "35-50", "25-35", "0-10", "15-25", "10-15"]
+                data: ["50万以上", "35-50万", "25-35万", "0-10万", "15-25万", "10-15万"]
             }
         ],
         series: [
             {
                 name: "销售量",
                 type: "bar",
-                data: [data[5].saleAmount, data[4].saleAmount, data[3].saleAmount, data[0].saleAmount, data[2].saleAmount, data[1].saleAmount]
+                itemStyle: {
+                    normal: {
+                        color: function (params) {
+                            var colorList = [
+                                "#fc97af",
+                                "#87f7cf",
+                                "#f7f494",
+                                "#72ccff",
+                                "#f7c5a0",
+                                "#d4a4eb",
+                                "#d2f5a6",
+                                "#76f2f2",
+                                "#ef72ff",
+                                "#7de485"];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                },
+                data: getThousand([data[5].saleAmount, data[4].saleAmount, data[3].saleAmount, data[0].saleAmount, data[2].saleAmount, data[1].saleAmount])
             }
         ]
     };
@@ -420,13 +492,15 @@ function echart_5(data) {
     var myChart = echarts.init(document.getElementById('chart_5'), 'chalk');
     var option = {
         title: {
-            text: "轿车各月销量走势图"
+            text: "轿车各月销量走势图",
+            x: "center"
         },
         tooltip: {
             trigger: "axis"
         },
         legend: {
-            data: ["销量"]
+            data: ["销量"],
+            x: "left"
         },
         toolbox: {
             show: true,
@@ -462,6 +536,22 @@ function echart_5(data) {
                 type: "value"
             }
         ],
+        color: function (params) {
+            var colorList = [
+                "#fc97af",
+                "#87f7cf",
+                "#f7f494",
+                "#72ccff",
+                "#f7c5a0",
+                "#d4a4eb",
+                "#d2f5a6",
+                "#76f2f2",
+                "#ef72ff",
+                "#7de485",
+                "#99ccff",
+                "#39b5cc"];
+            return colorList[params.dataIndex];
+        },
         series: [
             {
                 name: "销量",
@@ -482,13 +572,15 @@ function echart_6(data) {
     var myChart = echarts.init(document.getElementById('chart_6'), 'chalk');
     var option = {
         title: {
-            text: "SUV各月销量走势图"
+            text: "SUV各月销量走势图",
+            x: "center"
         },
         tooltip: {
             trigger: "axis"
         },
         legend: {
-            data: ["销量"]
+            data: ["销量"],
+            x: "left"
         },
         toolbox: {
             show: true,
@@ -513,6 +605,22 @@ function echart_6(data) {
             }
         },
         calculable: true,
+        color: function (params) {
+            var colorList = [
+                "#fc97af",
+                "#87f7cf",
+                "#f7f494",
+                "#72ccff",
+                "#f7c5a0",
+                "#d4a4eb",
+                "#d2f5a6",
+                "#76f2f2",
+                "#ef72ff",
+                "#7de485",
+                "#99ccff",
+                "#39b5cc"];
+            return colorList[params.dataIndex];
+        },
         xAxis: [
             {
                 type: "category",
@@ -544,13 +652,15 @@ function echart_7(data) {
     var myChart = echarts.init(document.getElementById('chart_7'), 'chalk');
     var option = {
         title: {
-            text: "MPV各月销量走势图"
+            text: "MPV各月销量走势图",
+            x: "center"
         },
         tooltip: {
             trigger: "axis"
         },
         legend: {
-            data: ["销量"]
+            data: ["销量"],
+            x: "left"
         },
         toolbox: {
             show: true,
@@ -575,6 +685,22 @@ function echart_7(data) {
             }
         },
         calculable: true,
+        color: function (params) {
+            var colorList = [
+                "#fc97af",
+                "#87f7cf",
+                "#f7f494",
+                "#72ccff",
+                "#f7c5a0",
+                "#d4a4eb",
+                "#d2f5a6",
+                "#76f2f2",
+                "#ef72ff",
+                "#7de485",
+                "#99ccff",
+                "#39b5cc"];
+            return colorList[params.dataIndex];
+        },
         xAxis: [
             {
                 type: "category",
