@@ -4,6 +4,7 @@ import com.techarmy.dao.MPVDao;
 import com.techarmy.model.CarBrandSale;
 import com.techarmy.model.CarBrandSaleMonth;
 import com.techarmy.model.CarCountrySale;
+import com.techarmy.model.CarCountrySaleMonth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,8 @@ public class MPVSaleService {
         return mpvDao.getMPVJapanSaleTop();
     }
 
-
+    public List<CarCountrySaleMonth> getMPVCountrySaleMonth(){
+        return mpvDao.getMPVCountrySaleMonth();
+    }
 
 }

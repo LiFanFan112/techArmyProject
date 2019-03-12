@@ -1,9 +1,6 @@
 package com.techarmy.controller;
 
-import com.techarmy.model.CarBrandSale;
-import com.techarmy.model.CarBrandSaleMonth;
-import com.techarmy.model.CarCountrySale;
-import com.techarmy.model.CarPriceRange;
+import com.techarmy.model.*;
 import com.techarmy.service.MPVSaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -105,8 +102,11 @@ public class MPVController {
         return mpvSaleService.getMPVJapanSaleTop();
     }
 
-
-
-
+    //MPV各系车各月销量走势
+    @RequestMapping(value = {"/getMPVCountrySaleMonth"})
+    @ResponseBody
+    public List<CarCountrySaleMonth> getMPVCountrySaleMonth(){
+        return mpvSaleService.getMPVCountrySaleMonth();
+    }
 
 }

@@ -57,5 +57,7 @@ public interface SUVDao {
     @Select({"select * from suv_Sweden_top"})
     List<CarBrandSale> getSUVSwedenSaleTop();
 
+    @Select({"select * from suv_country_sale_month"})
+    List<CarCountrySaleMonth> getSUVCountrySaleMonth();
 
 }

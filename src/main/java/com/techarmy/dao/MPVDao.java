@@ -3,6 +3,7 @@ package com.techarmy.dao;
 import com.techarmy.model.CarBrandSale;
 import com.techarmy.model.CarBrandSaleMonth;
 import com.techarmy.model.CarCountrySale;
+import com.techarmy.model.CarCountrySaleMonth;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -41,11 +42,7 @@ public interface MPVDao {
     @Select({"select * from mpv_Japan_top"})
     List<CarBrandSale> getMPVJapanSaleTop();
 
-
-
-
-
-
-
+    @Select({"select * from mpv_country_sale_month"})
+    List<CarCountrySaleMonth> getMPVCountrySaleMonth();
 
 }

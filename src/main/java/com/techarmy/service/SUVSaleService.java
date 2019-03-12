@@ -5,6 +5,7 @@ import com.techarmy.dao.SUVDao;
 import com.techarmy.model.CarBrandSale;
 import com.techarmy.model.CarBrandSaleMonth;
 import com.techarmy.model.CarCountrySale;
+import com.techarmy.model.CarCountrySaleMonth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,10 @@ public class SUVSaleService {
 
     public List<CarBrandSale> getSUVSwedenSaleTop(){
         return suvDao.getSUVSwedenSaleTop();
+    }
+
+    public List<CarCountrySaleMonth> getSUVCountrySaleMonth(){
+        return suvDao.getSUVCountrySaleMonth();
     }
 
 }
