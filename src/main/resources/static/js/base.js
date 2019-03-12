@@ -1,5 +1,9 @@
 // base.js 中绘制15张图, 绑定按钮显示, 并根据地址栏的id判断显示哪一张图
 $(function () {
+    function ajaxErrorAlert() {
+        alert("Error Sending Ajax Request");
+    }
+
     echart_map();
     //echart_1湖南各市货运量
     function echart_1() {
@@ -280,243 +284,90 @@ $(function () {
         });
     }
     //echart_0湖南省飞机场
-    function echart_0() {
+    function echart_0(data) {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('chart_0'));
-
-        function showProvince() {
-                var geoCoordMap = {
-                    '长沙黄花国际机场': [113.226512,28.192929],
-                    '张家界荷花机场': [110.454598,29.107223],
-                    '常德桃花源机场': [111.651508,28.921516],
-                    '永州零陵机场': [111.622869,26.340994],
-                    '怀化芷江机场': [109.714784,27.44615],
-                };
-                var data = [{
-                        name: '长沙黄花国际机场',
-                        value: 100
+        var myChart = echarts.init(document.getElementById('chart_0'), 'chalk');
+        var option = {
+            title: {
+                text: "SUV各系车每月销量",
+            },
+            tooltip: {
+                trigger: "axis"
+            },
+            legend: {
+                data: ["德系", "法系", "韩系", "美系", "日系", "自主"]
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {
+                        show: true
                     },
-                    {
-                        name: '张家界荷花机场',
-                        value: 100
-                    },
-                    {
-                        name: '常德桃花源机场',
-                        value: 100
-                    },
-                    {
-                        name: '永州零陵机场',
-                        value: 100
-                    },
-                    {
-                        name: '怀化芷江机场',
-                        value: 100
-                    }
-                ];
-                var max = 480,
-                    min = 9; // todo 
-                var maxSize4Pin = 100,
-                    minSize4Pin = 20;
-                var convertData = function (data) {
-                    var res = [];
-                    for (var i = 0; i < data.length; i++) {
-                        var geoCoord = geoCoordMap[data[i].name];
-                        if (geoCoord) {
-                            res.push({
-                                name: data[i].name,
-                                value: geoCoord.concat(data[i].value)
-                            });
-                        }
-                    }
-                    return res;
-                };
-
-                myChart.setOption(option = {
-                    title: {
-                        top: 20,
-                        text: '',
-                        subtext: '',
-                        x: 'center',
-                        textStyle: {
-                            color: '#ccc'
-                        }
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        y: 'bottom',
-                        x: 'right',
-                        data: ['pm2.5'],
-                        textStyle: {
-                            color: '#fff'
-                        }
-                    },
-                    visualMap: {
-                        show: false,
-                        min: 0,
-                        max: 500,
-                        left: 'left',
-                        top: 'bottom',
-                        text: ['高', '低'], // 文本，默认为数值文本
-                        calculable: true,
-                        seriesIndex: [1],
-                        inRange: {
-                        }
-                    },
-                    geo: {
+                    dataView: {
                         show: true,
-                        map:'hunan',
-                        mapType: 'hunan',
-                        label: {
-                            normal: {
-                            },
-                            //鼠标移入后查看效果
-                            emphasis: {
-                                textStyle: {
-                                    color: '#fff'
-                                }
-                            }
-                        },
-                        //鼠标缩放和平移
-                        roam: true,
-                        itemStyle: {
-                            normal: {
-                                //          	color: '#ddd',
-                                borderColor: 'rgba(147, 235, 248, 1)',
-                                borderWidth: 1,
-                                areaColor: {
-                                    type: 'radial',
-                                    x: 0.5,
-                                    y: 0.5,
-                                    r: 0.8,
-                                    colorStops: [{
-                                        offset: 0,
-                                        color: 'rgba(175,238,238, 0)' // 0% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: 'rgba(	47,79,79, .2)' // 100% 处的颜色
-                                    }],
-                                    globalCoord: false // 缺省为 false
-                                },
-                                shadowColor: 'rgba(128, 217, 248, 1)',
-                                shadowOffsetX: -2,
-                                shadowOffsetY: 2,
-                                shadowBlur: 10
-                            },
-                            emphasis: {
-                                areaColor: '#389BB7',
-                                borderWidth: 0
-                            }
-                        }
+                        readOnly: true
                     },
-                    series: [{
-                            name: 'light',
-                            type: 'map',
-                            coordinateSystem: 'geo',
-                            data: convertData(data),
-                            itemStyle: {
-                                normal: {
-                                    color: '#F4E925'
-                                }
-                            }
-                        },
-                        {
-                            name: '点',
-                            type: 'scatter',
-                            coordinateSystem: 'geo',
-                            symbol: 'pin',
-                            symbolSize: function(val) {
-                                var a = (maxSize4Pin - minSize4Pin) / (max - min);
-                                var b = minSize4Pin - a * min;
-                                b = maxSize4Pin - a * max;
-                                return a * val[2] + b;
-                            },
-                            label: {
-                                normal: {
-                                    // show: true,
-                                    // textStyle: {
-                                    //     color: '#fff',
-                                    //     fontSize: 9,
-                                    // }
-                                }
-                            },
-                            itemStyle: {
-                                normal: {
-                                    color: '#F62157', //标志颜色
-                                }
-                            },
-                            zlevel: 6,
-                            data: convertData(data),
-                        },
-                        {  
-                            name: 'light',
-                            type: 'map',
-                            mapType: 'hunan',
-                            geoIndex: 0,
-                            aspectScale: 0.75, //长宽比
-                            showLegendSymbol: false, // 存在legend时显示
-                            label: {
-                                normal: {
-                                    show: false
-                                },
-                                emphasis: {
-                                    show: false,
-                                    textStyle: {
-                                        color: '#fff'
-                                    }
-                                }
-                            },
-                            roam: true,
-                            itemStyle: {
-                                normal: {
-                                    areaColor: '#031525',
-                                    borderColor: '#FFFFFF',
-                                },
-                                emphasis: {
-                                    areaColor: '#2B91B7'
-                                }
-                            },
-                            animation: false,
-                            data: data
-                        },
-                        {
-                            name: ' ',
-                            type: 'effectScatter',
-                            coordinateSystem: 'geo',
-                            data: convertData(data.sort(function (a, b) {
-                                return b.value - a.value;
-                            }).slice(0, 5)),
-                            symbolSize: function (val) {
-                                return val[2] / 10;
-                            },
-                            showEffectOn: 'render',
-                            rippleEffect: {
-                                brushType: 'stroke'
-                            },
-                            hoverAnimation: true,
-                            label: {
-                                normal: {
-                                    formatter: '{b}',
-                                    position: 'right',
-                                    show: true
-                                }
-                            },
-                            itemStyle: {
-                                normal: {
-                                    color: '#05C3F9',
-                                    shadowBlur: 10,
-                                    shadowColor: '#05C3F9'
-                                }
-                            },
-                            zlevel: 1
-                        },
-
-                    ]
-                });
-        }
-        showProvince();
-
+                    magicType: {
+                        show: false,
+                        type: ["line", "bar"]
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: "category",
+                    boundaryGap: false,
+                    data: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+                }
+            ],
+            yAxis: [
+                {
+                    type: "value",
+                    name: ""
+                }
+            ],
+            series: [
+                {
+                    name: "德系",
+                    type: "line",
+                    data: Object.values(data[0]).slice(2)
+                },
+                {
+                    name: "法系",
+                    type: "line",
+                    data: Object.values(data[1]).slice(2)
+                },
+                {
+                    name: "韩系",
+                    type: "line",
+                    data: Object.values(data[2]).slice(2)
+                },
+                {
+                    name: "美系",
+                    type: "line",
+                    data: Object.values(data[3]).slice(2)
+                },
+                {
+                    name: "日系",
+                    type: "line",
+                    data: Object.values(data[4]).slice(2)
+                },
+                {
+                    name: "自主",
+                    type: "line",
+                    data: Object.values(data[5]).slice(2)
+                }
+            ]
+        };
         // 使用刚指定的配置项和数据显示图表。
-        // myChart.setOption(option);
+        myChart.setOption(option);
         window.addEventListener("resize", function () {
             myChart.resize();
         });
@@ -524,7 +375,7 @@ $(function () {
     //echart_2湖南省高速公路
     function echart_2() {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('chart_2'));
+        var myChart = echarts.init(document.getElementById('chart_2'), 'chalk');
 
             myChart.setOption({
                 series: [{
@@ -3383,99 +3234,96 @@ $(function () {
         };
         myChart.setOption(option);
     }
-    //湖南省地图
-    function echart_13(){
+    //SUV各系车总销量
+    function echart_13(data){
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('chart_13'));
-        function showProvince() {
-                myChart.setOption(option = {
-                    // backgroundColor: '#ffffff',
-                    visualMap: {
-                        show: false,
-                        min: 0,
-                        max: 100,
-                        left: 'left',
-                        top: 'bottom',
-                        text: ['高', '低'], // 文本，默认为数值文本
-                        calculable: true,
-                        inRange: {
-                            color: ['yellow', 'lightskyblue', 'orangered']
+        var myChart = echarts.init(document.getElementById('chart_13'), 'chalk');
+
+        var option = {
+            title: {
+                text: "SUV各系车总销量",
+                x: "center"
+            },
+            tooltip: {
+                trigger: "item",
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: "vertical",
+                x: "left",
+                data: ["美系", "英系", "自主", "法系", "德系", "日系", "韩系", "瑞士系"]
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {
+                        show: true
+                    },
+                    dataView: {
+                        show: true,
+                        readOnly: true
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            series: [
+                {
+                    name: "访问来源",
+                    type: "pie",
+                    radius: ["50%", "70%"],
+                    center: ["50%", "60%"],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                formatter: "{b}: {c} ({d}%)"
+                            }
                         }
                     },
-                    series: [{
-                        type: 'map',
-                        mapType: 'hunan',
-                        roam: true,
-                        label: {
-                            normal: {
-                                show: true
-                            },
-                            emphasis: {
-                                textStyle: {
-                                    color: '#fff'
-                                }
-                            }
+                    data: [
+                        {
+                            value: data[0].saleAmount,
+                            name: "美系"
                         },
-                        itemStyle: {
-                            normal: {
-                                borderColor: '#389BB7',
-                                areaColor: '#fff',
-                            },
-                            emphasis: {
-                                areaColor: '#389BB7',
-                                borderWidth: 0
-                            }
+                        {
+                            value: data[1].saleAmount,
+                            name: "英系"
                         },
-                        animation: false,
-                        data: [{
-                            name: '长沙市',
-                            value:  100
-                        }, {
-                            name: '株洲市',
-                            value: 96
-                        }, {
-                            name: '湘潭市',
-                            value: 98
-                        }, {
-                            name: '衡阳市',
-                            value: 80
-                        }, {
-                            name: '邵阳市',
-                            value: 88
-                        }, {
-                            name: '岳阳市',
-                            value: 79
-                        }, {
-                            name: '常德市',
-                            value: 77,
-                        }, {
-                            name: '张家界市',
-                            value: 33
-                        }, {
-                            name: '益阳市',
-                            value: 69,
-                        }, {
-                            name: '郴州市',
-                            value: 66
-                        }, {
-                            name: '永州市',
-                            value: 22
-                        },{
-                            name: '娄底市',
-                            value: 51
-                        },{
-                            name: '湘西土家族苗族自治州',
-                            value: 44
-                        },{
-                            name: '怀化市',
-                            value: 9
-                        }]
-                    }]
-                });
-        }
-
-        var currentIdx = 0;
-        showProvince();
+                        {
+                            value: data[2].saleAmount,
+                            name: "自主"
+                        },
+                        {
+                            value: data[3].saleAmount,
+                            name: "法系"
+                        },
+                        {
+                            value: data[4].saleAmount,
+                            name: "德系"
+                        },
+                        {
+                            value: data[5].saleAmount,
+                            name: "日系"
+                        },
+                        {
+                            value: data[6].saleAmount,
+                            name: "韩系"
+                        },
+                        {
+                            value: data[7].saleAmount,
+                            name: "瑞士系"
+                        }
+                    ]
+                }
+            ]
+        };
+        myChart.setOption(option);
         // 使用刚指定的配置项和数据显示图表。
         window.addEventListener("resize", function () {
             myChart.resize();
@@ -4851,7 +4699,16 @@ $(function () {
     $('.t_btn2').click(function(){
         $('.center_text').css('display', 'none');
         $('.t_cos2').css('display', 'block');
-        echart_0();
+        $.ajax({
+            url: "/getSUVCountrySaleMonth",
+            dataType: "json",
+            success: function (data) {
+                echart_0(data);
+            },
+            error: function () {
+                ajaxErrorAlert();
+            }
+        });
     });
     $('.t_btn3').click(function(){
         $('.center_text').css('display', 'none');
@@ -4906,7 +4763,16 @@ $(function () {
     $('.t_btn13').click(function(){
         $('.center_text').css('display', 'none');
         $('.t_cos13').css('display', 'block');
-        echart_13();
+        $.ajax({
+            url: "/getSUVCountrySale",
+            dataType: "json",
+            success: function (data) {
+                echart_13(data);
+            },
+            error: function () {
+                ajaxErrorAlert();
+            }
+        });
     });
     $('.t_btn14').click(function(){
         $('.center_text').css('display', 'none');
@@ -4961,7 +4827,16 @@ $(function () {
             if(id == 9){
                 $('.center_text').css('display', 'none');
                 $('.t_cos13').css('display', 'block');
-                echart_13();
+                $.ajax({
+                    url: "/getSUVCountrySale",
+                    dataType: "json",
+                    success: function (data) {
+                        echart_13(data);
+                    },
+                    error: function () {
+                        ajaxErrorAlert();
+                    }
+                });
             }
     });
 });
