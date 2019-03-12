@@ -632,7 +632,7 @@ $(function () {
                 trigger: "axis"
             },
             legend: {
-                data: ["美系", "英系", "自主", "法系", "德系", "日系", "韩系", "意系", "瑞典系"],
+                data: ["美系", "英系", "自主", "法系", "德系", "意系", "日系", "韩系", "瑞典系"],
                 x: "left",
                 orient: "vertical"
             },
@@ -683,8 +683,8 @@ $(function () {
                     data: [data[1].month1, data[1].month2, data[1].month3, data[1].month4, data[1].month5, data[1].month6, data[1].month7, data[1].month8, data[1].month9, data[1].month10, data[1].month11, data[1].month12]
                 },
                 {
-                    type: "line",
                     name: "自主",
+                    type: "line",
                     data: [data[2].month1, data[2].month2, data[2].month3, data[2].month4, data[2].month5, data[2].month6, data[2].month7, data[2].month8, data[2].month9, data[2].month10, data[2].month11, data[2].month12]
                 },
                 {
@@ -699,17 +699,17 @@ $(function () {
                 },
                 {
                     type: "line",
-                    name: "日系",
+                    name: "意系",
                     data: [data[5].month1, data[5].month2, data[5].month3, data[5].month4, data[5].month5, data[5].month6, data[5].month7, data[5].month8, data[5].month9, data[5].month10, data[5].month11, data[5].month12]
                 },
                 {
                     type: "line",
-                    name: "韩系",
+                    name: "日系",
                     data: [data[6].month1, data[6].month2, data[6].month3, data[6].month4, data[6].month5, data[6].month6, data[6].month7, data[6].month8, data[6].month9, data[6].month10, data[6].month11, data[6].month12]
                 },
                 {
                     type: "line",
-                    name: "意系",
+                    name: "韩系",
                     data: [data[7].month1, data[7].month2, data[7].month3, data[7].month4, data[7].month5, data[7].month6, data[7].month7, data[7].month8, data[7].month9, data[7].month10, data[7].month11, data[7].month12]
                 },
                 {
