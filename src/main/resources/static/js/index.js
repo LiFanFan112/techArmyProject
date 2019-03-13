@@ -219,7 +219,13 @@ $(function () {
                                     "#ef72ff",
                                     "#7de485"];
                                 return colorList[params.dataIndex];
-                            }
+                            },
+                            label: {
+                                color: '#ffffff',
+                                show: true,
+                                position: 'right',
+                                formatter:"{c}万"
+                            },
                         }
                     },
                     data: getTenThousand([data[4].saleAmount, data[3].saleAmount, data[2].saleAmount,
@@ -475,6 +481,12 @@ function echart_4(data) {
                                 "#ef72ff",
                                 "#7de485"];
                             return colorList[params.dataIndex];
+                        },
+                        label: {
+                            color: '#ffffff',
+                            show: true,
+                            position: 'right',
+                            formatter:"{c}万"
                         }
                     }
                 },
@@ -496,7 +508,8 @@ function echart_5(data) {
             x: "center"
         },
         tooltip: {
-            trigger: "axis"
+            trigger: "axis",
+            formatter: "{b}销量:<br/>{c}万"
         },
         legend: {
             data: ["销量"],
@@ -556,7 +569,17 @@ function echart_5(data) {
             {
                 name: "销量",
                 type: "bar",
-                data: getCarCountrySaleMonthArray(data[0])
+                data: getThousand(getCarCountrySaleMonthArray(data[0])),
+                itemStyle: {
+                    normal: {
+                        label: {
+                            color: '#ffffff',
+                            show: false,
+                            position: 'top',
+                            formatter:"{c}万"
+                        }
+                    }
+                }
             }
         ]
     };
@@ -576,7 +599,8 @@ function echart_6(data) {
             x: "center"
         },
         tooltip: {
-            trigger: "axis"
+            trigger: "axis",
+            formatter: "{b}销量:<br/>{c}万"
         },
         legend: {
             data: ["销量"],
@@ -636,7 +660,7 @@ function echart_6(data) {
             {
                 name: "销量",
                 type: "bar",
-                data: getCarCountrySaleMonthArray(data[1])
+                data: getThousand(getCarCountrySaleMonthArray(data[1]))
             }
         ]
     };
@@ -656,7 +680,8 @@ function echart_7(data) {
             x: "center"
         },
         tooltip: {
-            trigger: "axis"
+            trigger: "axis",
+            formatter: "{b}销量:<br/>{c}万"
         },
         legend: {
             data: ["销量"],
@@ -716,7 +741,7 @@ function echart_7(data) {
             {
                 name: "销量",
                 type: "bar",
-                data: getCarCountrySaleMonthArray(data[2])
+                data: getThousand(getCarCountrySaleMonthArray(data[2]))
             }
         ]
     };
