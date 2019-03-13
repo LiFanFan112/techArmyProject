@@ -2,7 +2,7 @@
 .data_content{
     /*overflow-x: hidden;*/
     min-width: 1366px;
-    padding-top: 0;
+    padding-top: 20px;
     padding-bottom: 20px;
 }
 .data_content .data_time{

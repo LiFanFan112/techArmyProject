@@ -62,8 +62,7 @@ a {
 .bg_header{
     width: 100%;
     height: 80px;
-    /*to-do: 设计一个不一样的header背景*/
-    /*background: url(../img/title.png) no-repeat;*/
+    background: url(../img/title.png) no-repeat;
     background-size: 100% 100%;
 }
 .header>.header_logo{
