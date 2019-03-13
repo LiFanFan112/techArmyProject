@@ -15,6 +15,10 @@ $(function () {
         return Math.round(data / 1000) / 10;
     }
 
+    function toPoint(str) {
+        return str.replace("%", "");
+    }
+
     // 第1个button, chart_map
     function echart_map(data) {
         // 基于准备好的dom，初始化echarts实例
@@ -1069,387 +1073,145 @@ $(function () {
         // });
     }
 
-    // 湖南各市货运量
-    // function echart_1() {
-    //     // 基于准备好的dom，初始化echarts实例
-    //     var myChart = echarts.init(document.getElementById('chart_1'));
-    //     myChart.clear();
-    //     option = {
-    //         tooltip: {
-    //             trigger: 'item',
-    //             formatter: "{a} <br/>{b} : {c}万元"
-    //         },
-    //         legend: {
-    //             x: 'center',
-    //             y: '15%',
-    //             data: ['长沙', '株洲', '湘潭', '衡阳', '邵阳', '岳阳', '常德', '张家界', '益阳', '郴州', '永州', '娄底', '怀化', '湘西'],
-    //             icon: 'circle',
-    //             textStyle: {
-    //                 color: '#fff',
-    //             }
-    //         },
-    //         calculable: true,
-    //         series: [{
-    //             name: '',
-    //             type: 'pie',
-    //             //起始角度，支持范围[0, 360]
-    //             startAngle: 0,
-    //             //饼图的半径，数组的第一项是内半径，第二项是外半径
-    //             radius: [41, 280.75],
-    //             //支持设置成百分比，设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
-    //             center: ['50%', '40%'],
-    //             //是否展示成南丁格尔图，通过半径区分数据大小。可选择两种模式：
-    //             // 'radius' 面积展现数据的百分比，半径展现数据的大小。
-    //             //  'area' 所有扇区面积相同，仅通过半径展现数据大小
-    //             roseType: 'area',
-    //             //是否启用防止标签重叠策略，默认开启，圆环图这个例子中需要强制所有标签放在中心位置，可以将该值设为 false。
-    //             avoidLabelOverlap: false,
-    //             label: {
-    //                 normal: {
-    //                     show: true,
-    //                     formatter: '{c}万元'
-    //                 },
-    //                 emphasis: {
-    //                     show: true
-    //                 }
-    //             },
-    //             labelLine: {
-    //                 normal: {
-    //                     show: true,
-    //                     length2: 1,
-    //                 },
-    //                 emphasis: {
-    //                     show: true
-    //                 }
-    //             },
-    //             data: [{
-    //                 value: 900.58,
-    //                 name: '怀化',
-    //                 itemStyle: {
-    //                     normal: {
-    //                         color: '#f845f1'
-    //                     }
-    //                 }
-    //             },
-    //                 {
-    //                     value: 1100.58,
-    //                     name: '永州',
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#ad46f3'
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 1200.58,
-    //                     name: '张家界',
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#5045f6'
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 1300.58,
-    //                     name: '邵阳',
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#4777f5'
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 1400.58,
-    //                     name: '常德',
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#44aff0'
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 1500.58,
-    //                     name: '岳阳',
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#45dbf7'
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 1500.58,
-    //                     name: '湘潭',
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#f6d54a'
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 1600.58,
-    //                     name: '株洲',
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#f69846'
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 1800,
-    //                     name: '长沙',
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#ff4343'
-    //                         }
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: '#transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: 'transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: 'transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: 'transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: 'transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: 'transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: 'transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: 'transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 },
-    //                 {
-    //                     value: 0,
-    //                     name: "",
-    //                     itemStyle: {
-    //                         normal: {
-    //                             color: 'transparent'
-    //                         }
-    //                     },
-    //                     label: {
-    //                         show: false
-    //                     },
-    //                     labelLine: {
-    //                         show: false
-    //                     }
-    //                 }
-    //             ]
-    //         }]
-    //     };
-    //     // 使用刚指定的配置项和数据显示图表。
-    //     myChart.setOption(option);
-    //     window.addEventListener("resize", function () {
-    //         myChart.resize();
-    //     });
-    // }
+    // 第10个button, chart_1
+    function echart_1(data1, data2) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart_1'), 'chalk');
 
-    //湖南货物周转量
-    // function echart_8() {
-    //     var myChart = echarts.init(document.getElementById('chart_8'));
-    //     myChart.clear();
-    //     option = {
-    //         title: {
-    //             text: ''
-    //         },
-    //         tooltip: {
-    //             trigger: 'axis'
-    //         },
-    //         legend: {
-    //             data: ['铁路货物周转量', '国家铁路货物周转量', '地方铁路货物周转量', '合资铁路货物周转量', '公路货物周转量', '水运货物周转量'],
-    //             textStyle: {
-    //                 color: '#fff'
-    //             },
-    //             top: '4%'
-    //         },
-    //         grid: {
-    //             left: '3%',
-    //             right: '4%',
-    //             bottom: '3%',
-    //             containLabel: true
-    //         },
-    //         toolbox: {
-    //             orient: 'vertical',
-    //             right: '1%',
-    //             top: '2%',
-    //             iconStyle: {
-    //                 color: '#FFEA51',
-    //                 borderColor: '#FFA74D',
-    //                 borderWidth: 1
-    //             },
-    //             feature: {
-    //                 saveAsImage: {},
-    //                 magicType: {
-    //                     show: true,
-    //                     type: ['line', 'bar', 'stack', 'tiled']
-    //                 }
-    //             }
-    //         },
-    //         color: ['#FF4949', '#FFA74D', '#FFEA51', '#4BF0FF', '#44AFF0', '#4E82FF', '#584BFF', '#BE4DFF', '#F845F1'],
-    //         xAxis: {
-    //             type: 'category',
-    //             boundaryGap: false,
-    //             data: ['2014年', '2015年', '2016年', '2017年', '2018年'],
-    //             splitLine: {
-    //                 show: false
-    //             },
-    //             axisLine: {
-    //                 lineStyle: {
-    //                     color: '#fff'
-    //                 }
-    //             }
-    //         },
-    //         yAxis: {
-    //             name: '亿吨公里',
-    //             type: 'value',
-    //             splitLine: {
-    //                 show: false
-    //             },
-    //             axisLine: {
-    //                 lineStyle: {
-    //                     color: '#fff'
-    //                 }
-    //             }
-    //         },
-    //         series: [
-    //             {
-    //                 name: '铁路货物周转量',
-    //                 type: 'line',
-    //                 data: [3961.88, 4233.63, 4183.14, 3633.01, 3704.47]
-    //             },
-    //             {
-    //                 name: '国家铁路货物周转量',
-    //                 type: 'line',
-    //                 data: [3374.76, 3364.76, 3274.76, 3371.82, 3259.87]
-    //             },
-    //             {
-    //                 name: '地方铁路货物周转量',
-    //                 type: 'line',
-    //                 data: [14.77, 15.17, 13.17, 14.56, 15.84]
-    //             },
-    //             {
-    //                 name: '合资铁路货物周转量',
-    //                 type: 'line',
-    //                 data: [686.17, 847.26, 895.22, 865.28, 886.72]
-    //             },
-    //             {
-    //                 name: '公路货物周转量',
-    //                 type: 'line',
-    //                 data: [6133.47, 6577.89, 7019.56, 6821.48, 7294.59]
-    //             },
-    //             {
-    //                 name: '水运货物周转量',
-    //                 type: 'line',
-    //                 data: [509.60, 862.54, 1481.77, 1552.79, 1333.62]
-    //             }
-    //         ]
-    //     };
-    //     myChart.setOption(option);
-    // }
+        var option = {
+            title: {
+                text: "各年龄段传统/新能源汽车",
+                subtext: "销量占比图",
+                x: "left"
+            },
+            tooltip: {
+                trigger: "axis"
+            },
+            legend: {
+                data: ["传统汽车", "新能源汽车"],
+                x: "center"
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    mark: {
+                        show: true
+                    },
+                    dataView: {
+                        show: true,
+                        readOnly: true
+                    },
+                    magicType: {
+                        show: false,
+                        type: ["line", "bar"]
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: "category",
+                    boundaryGap: false,
+                    data: ["18岁以下", "19-24岁", "25-34岁", "35-49岁", "50岁以上"]
+                }
+            ],
+            yAxis: [
+                {
+                    type: "value"
+                }
+            ],
+            series: [
+                {
+                    name: "传统汽车",
+                    type: "line",
+                    data: [toPoint(data1[0].percent), toPoint(data1[1].percent), toPoint(data1[2].percent), toPoint(data1[3].percent), toPoint(data1[4].percent)]
+                },
+                {
+                    name: "新能源汽车",
+                    type: "line",
+                    data: [toPoint(data2[0].percent), toPoint(data2[1].percent), toPoint(data2[2].percent), toPoint(data2[3].percent), toPoint(data2[4].percent)]
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+    }
+
+    // 第11个button, chart_8
+    function echart_8(data) {
+        var myChart = echarts.init(document.getElementById('chart_8'), 'chalk');
+        var option = {
+            title: {
+                text: '不同性别传统/新能源汽车',
+                subtext: '购买比例',
+                x: "left"
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                data: ['男性', '女性'],
+                x: "center"
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['传统汽车', '新能源汽车']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '男性',
+                    type: 'bar',
+                    data: [toPoint(data[0].percent), toPoint(data[2].percent)],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                color: '#ffffff',
+                                show: true,
+                                position: 'top',
+                                formatter: "{c}%"
+                            }
+                        }
+                    }
+                },
+                {
+                    name: '女性',
+                    type: 'bar',
+                    data: [toPoint(data[1].percent), toPoint(data[3].percent)],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                color: '#ffffff',
+                                show: true,
+                                position: 'top',
+                                formatter: "{c}%"
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option);
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+    }
 
     //湖南运输线长度
     // function echart_9() {
@@ -2367,11 +2129,31 @@ $(function () {
         });
     });
 
-    // $('.t_btn5').click(function () {
-    //     $('.center_text').css('display', 'none');
-    //     $('.t_cos4').css('display', 'block');
-    //     echart_1();
-    // });
+    $('.t_btn5').click(function () {
+        $('.center_text').css('display', 'none');
+        $('.t_cos4').css('display', 'block');
+        $.ajax({
+            url: "/getCarRangePercent",
+            type: "POST",
+            dataType: "json",
+            success: function (data1) {
+                $.ajax({
+                    url: "/getNewCarRangePercent",
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data2) {
+                        echart_1(data1, data2);
+                    },
+                    error: function () {
+                        ajaxErrorAlert();
+                    }
+                });
+            },
+            error: function () {
+                ajaxErrorAlert();
+            }
+        });
+    });
 
     $('.t_btn6').click(function () {
         $('.center_text').css('display', 'none');
@@ -2425,11 +2207,21 @@ $(function () {
         });
     });
 
-    // $('.t_btn8').click(function () {
-    //     $('.center_text').css('display', 'none');
-    //     $('.t_cos8').css('display', 'block');
-    //     echart_8();
-    // });
+    $('.t_btn8').click(function () {
+        $('.center_text').css('display', 'none');
+        $('.t_cos8').css('display', 'block');
+        $.ajax({
+            url: "/getCarSexPercentKind",
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                echart_8(data);
+            },
+            error: function () {
+                ajaxErrorAlert();
+            }
+        });
+    });
     //
     // $('.t_btn9').click(function () {
     //     $('.center_text').css('display', 'none');
