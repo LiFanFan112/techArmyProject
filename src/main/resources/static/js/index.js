@@ -29,6 +29,10 @@ $(function () {
         return Math.round(data / 1000) / 10;
     }
 
+    function toPoint(str) {
+        return str.replace("%", "");
+    }
+
     $.ajax({
         url: "/getAllSaleMonth",
         dataType: "json",
@@ -69,6 +73,16 @@ $(function () {
         dataType: "json",
         success: function (data) {
             echart_3(data);
+        },
+        error: function () {
+            ajaxErrorAlert();
+        }
+    });
+
+    $.ajax({
+        url: "/getCarRangePercent",
+        dataType: "json",
+        success: function (data) {
             echart_4(data);
         },
         error: function () {
@@ -435,16 +449,16 @@ $(function () {
 
         var option = {
             title: {
-                text: "车辆价格区间",
-                subtext: "Top榜",
+                text: "不同年龄段",
+                subtext: "汽车销量占比",
                 x: "center"
             },
             grid: {
-                x: 75
+                x: 65
             },
             tooltip: {
                 trigger: "axis",
-                formatter: "{b}{a}:{c}万"
+                formatter: "{b}{a}:{c}%"
             },
             legend: {
                 data: ["销售量"],
@@ -460,7 +474,7 @@ $(function () {
             yAxis: [
                 {
                     type: "category",
-                    data: ["50万以上", "35-50万", "25-35万", "0-10万", "15-25万", "10-15万"]
+                    data: ["18岁以下", "19-24岁", "25-34岁", "35-49岁", "50岁以上"]
                 }
             ],
             series: [
@@ -487,11 +501,11 @@ $(function () {
                                 color: '#ffffff',
                                 show: true,
                                 position: 'right',
-                                formatter: "{c}万"
+                                formatter: "{c}%"
                             }
                         }
                     },
-                    data: getThousand([data[5].saleAmount, data[4].saleAmount, data[3].saleAmount, data[0].saleAmount, data[2].saleAmount, data[1].saleAmount])
+                    data: [toPoint(data[0].percent), toPoint(data[1].percent), toPoint(data[2].percent), toPoint(data[3].percent), toPoint(data[4].percent)]
                 }
             ]
         };
