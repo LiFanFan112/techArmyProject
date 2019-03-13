@@ -53,6 +53,14 @@ public interface CarSaleDao {
     @Select({"select * from total_sale"})
     List<CarBrandSale> getAllSale();
 
+    @Select({"select * from car_age_range_percent"})
+    List<CarRangePercent> getCarRangePercent();
+
+    @Select({"select * from new_car_age_range_percent"})
+    List<CarRangePercent> getNewCarRangePercent();
+
+    @Select({"select * from car_sex_percent"})
+    List<CarSexPercentKind> getCarSexPercentKind();
 
 
 

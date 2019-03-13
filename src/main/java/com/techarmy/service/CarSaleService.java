@@ -99,4 +99,17 @@ public class CarSaleService {
     public List<CarBrandSale> getAllSale(){
         return carSaleDao.getAllSale();
     }
+
+    public List<CarRangePercent> getCarRangePercent(){
+        return carSaleDao.getCarRangePercent();
+    }
+
+    public List<CarRangePercent> getNewCarRangePercent(){
+        return carSaleDao.getNewCarRangePercent();
+    }
+
+    public List<CarSexPercentKind> getCarSexPercentKind(){
+        return carSaleDao.getCarSexPercentKind();
+    }
+
 }

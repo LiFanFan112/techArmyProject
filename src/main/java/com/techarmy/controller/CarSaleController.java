@@ -217,5 +217,41 @@ public class CarSaleController {
         return carSaleService.getAllSale();
     }
 
+    //各年龄段 普通汽车销量占比
+    /*
+    [{"id":1,"range":"-18","percent":"7%"},
+    {"id":2,"range":"19-24","percent":"30%"},
+    {"id":3,"range":"25-34","percent":"52%"},
+    {"id":4,"range":"35-49","percent":"10%"},
+    {"id":5,"range":"50-","percent":"1%"}]
+     */
+    @RequestMapping(value = "/getCarRangePercent")
+    @ResponseBody
+    public List<CarRangePercent> getCarRangePercent(){
+        return carSaleService.getCarRangePercent();
+    }
+
+    //各年龄段 新能源汽车销量占比
+    /*
+    [{"id":1,"range":"-18","percent":"6%"},{"id":2,"range":"18-24","percent":"25%"},
+    {"id":3,"range":"25-34","percent":"57%"},{"id":4,"range":"35-49","percent":"11%"},
+    {"id":5,"range":"50-","percent":"1%"}]
+     */
+    @RequestMapping(value = "/getNewCarRangePercent")
+    @ResponseBody
+    public List<CarRangePercent> getNewCarRangePercent(){
+        return carSaleService.getNewCarRangePercent();
+    }
+
+    //不同性别选择 普通汽车和新能源汽车的比例
+    /*
+    [{"id":1,"sex":"男","percent":"67%","kind":"普通汽车"},{"id":2,"sex":"女","percent":"33%","kind":"普通汽车"},
+    {"id":3,"sex":"男","percent":"72%","kind":"新能源汽车"},{"id":4,"sex":"女","percent":"28%","kind":"新能源汽车"}]
+     */
+    @RequestMapping(value = "/getCarSexPercentKind")
+    @ResponseBody
+    public List<CarSexPercentKind> getCarSexPercentKind(){
+        return carSaleService.getCarSexPercentKind();
+    }
 
 }
