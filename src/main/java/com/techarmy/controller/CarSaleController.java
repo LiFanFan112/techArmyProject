@@ -254,4 +254,11 @@ public class CarSaleController {
         return carSaleService.getCarSexPercentKind();
     }
 
+    //车辆舒适度 相关因素重要程度
+    @RequestMapping(value = "/getCarFeatureImportance")
+    @ResponseBody
+    public List<FeatureImportance> getCarFeatureImportance(){
+        return carSaleService.getCarFeatureImportance();
+    }
+
 }

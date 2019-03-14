@@ -62,7 +62,7 @@ public interface CarSaleDao {
     @Select({"select * from car_sex_percent"})
     List<CarSexPercentKind> getCarSexPercentKind();
 
-
-
+    @Select({"select * from car_feature_importance"})
+    List<FeatureImportance> getCarFeatureImportance();
 
 }

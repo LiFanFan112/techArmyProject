@@ -112,4 +112,8 @@ public class CarSaleService {
         return carSaleDao.getCarSexPercentKind();
     }
 
+    public List<FeatureImportance> getCarFeatureImportance(){
+        return carSaleDao.getCarFeatureImportance();
+    }
+
 }
