@@ -1213,113 +1213,89 @@ $(function () {
         });
     }
 
-    //湖南运输线长度
-    // function echart_9() {
-    //     var myChart = echarts.init(document.getElementById('chart_9'));
-    //     myChart.clear();
-    //     option = {
-    //         title: {
-    //             text: ''
-    //         },
-    //         tooltip: {
-    //             trigger: 'axis'
-    //         },
-    //         legend: {
-    //             data: ['铁路营业里程', '公路里程', '等级公路里程', '高速等级公路里程', '一级等级公路里程', '二级等级公路里程', '等外公路公路里程'],
-    //             textStyle: {
-    //                 color: '#fff'
-    //             },
-    //             top: '4%'
-    //         },
-    //         grid: {
-    //             left: '3%',
-    //             right: '4%',
-    //             bottom: '3%',
-    //             containLabel: true
-    //         },
-    //         toolbox: {
-    //             orient: 'vertical',
-    //             right: '1%',
-    //             top: '2%',
-    //             iconStyle: {
-    //                 color: '#FFEA51',
-    //                 borderColor: '#FFA74D',
-    //                 borderWidth: 1
-    //             },
-    //             feature: {
-    //                 saveAsImage: {},
-    //                 magicType: {
-    //                     show: true,
-    //                     type: ['line', 'bar', 'stack', 'tiled']
-    //                 }
-    //             }
-    //         },
-    //         xAxis: {
-    //             type: 'category',
-    //             boundaryGap: false,
-    //             data: ['2014年', '2015年', '2016年', '2017年', '2018年'],
-    //             splitLine: {
-    //                 show: false
-    //             },
-    //             axisLine: {
-    //                 lineStyle: {
-    //                     color: '#fff'
-    //                 }
-    //             }
-    //         },
-    //         yAxis: {
-    //             name: '万公里',
-    //             type: 'value',
-    //             splitLine: {
-    //                 show: false
-    //             },
-    //             axisLine: {
-    //                 lineStyle: {
-    //                     color: '#fff'
-    //                 }
-    //             }
-    //         },
-    //         color: ['#FF4949', '#FFA74D', '#FFEA51', '#4BF0FF', '#44AFF0', '#4E82FF', '#584BFF', '#BE4DFF', '#F845F1'],
-    //         series: [
-    //             {
-    //                 name: '铁路营业里程',
-    //                 type: 'line',
-    //                 data: [0.56, 0.63, 0.63, 0.70, 0.70]
-    //             },
-    //             {
-    //                 name: '公路里程',
-    //                 type: 'line',
-    //                 data: [16.30, 17.45, 17.92, 18.46, 18.84]
-    //             },
-    //             {
-    //                 name: '等级公路里程',
-    //                 type: 'line',
-    //                 data: [15.54, 16.77, 17.29, 17.86, 18.26]
-    //             },
-    //             {
-    //                 name: '高速等级公路里程',
-    //                 type: 'line',
-    //                 data: [0.51, 0.56, 0.59, 0.63, 0.65]
-    //             },
-    //             {
-    //                 name: '一级等级公路里程',
-    //                 type: 'line',
-    //                 data: [0.47, 0.48, 0.51, 0.54, 0.56]
-    //             },
-    //             {
-    //                 name: '二级等级公路里程',
-    //                 type: 'line',
-    //                 data: [1.76, 1.85, 1.93, 1.97, 1.99]
-    //             },
-    //             {
-    //                 name: '等外公路公路里程',
-    //                 type: 'line',
-    //                 data: [0.76, 0.68, 0.63, 0.60, 0.58]
-    //             }
-    //         ]
-    //     };
-    //     myChart.setOption(option);
-    // }
+    // 第12个button, chart_9
+    function echart_9(data) {
+        var myChart = echarts.init(document.getElementById('chart_9'), 'chalk');
+        myChart.clear();
+        var option = {
+            title: {
+                text: "影响汽车销量的因素",
+                subtext: "占比图",
+                x: "left"
+            },
+            tooltip: {
+                trigger: "item",
+                formatter: "{b}影响程度:<br/> {d}%"
+            },
+            legend: {
+                x: "center",
+                data: ["外观", "操纵", "空间", "动力", "油耗", "舒适度", "内饰", "性价比"]
+            },
+            calculable: true,
+            series: [
+                {
+                    name: "汽车销量",
+                    type: "pie",
+                    radius: ["50%", "70%"],
+                    center: ["50%", "60%"],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                formatter: "{b}: {d}%"
+                            },
+                            labelLine: {
+                                show: true
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            },
+                            labelLine: {
+                                show: true
+                            }
+                        }
+                    },
+                    data: [
+                        {
+                            value: data[1].importance,
+                            name: "外观"
+                        },
+                        {
+                            value: data[2].importance,
+                            name: "操纵"
+                        },
+                        {
+                            value: data[3].importance,
+                            name: "空间"
+                        },
+                        {
+                            value: data[4].importance,
+                            name: "动力"
+                        },
+                        {
+                            value: data[5].importance,
+                            name: "油耗"
+                        },
+                        {
+                            value: data[6].importance,
+                            name: "舒适度"
+                        },
+                        {
+                            value: data[7].importance,
+                            name: "内饰"
+                        },
+                        {
+                            value: data[8].importance,
+                            name: "性价比"
+                        }
+                    ]
+                }
+            ]
+        };
+        myChart.setOption(option);
+    }
 
     //湖南省快递业务量
     // function echart_10() {
@@ -2222,12 +2198,22 @@ $(function () {
             }
         });
     });
-    //
-    // $('.t_btn9').click(function () {
-    //     $('.center_text').css('display', 'none');
-    //     $('.t_cos9').css('display', 'block');
-    //     echart_9();
-    // });
+
+    $('.t_btn9').click(function () {
+        $('.center_text').css('display', 'none');
+        $('.t_cos9').css('display', 'block');
+        $.ajax({
+            url: "/getCarFeatureImportance",
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                echart_9(data);
+            },
+            error: function () {
+                ajaxErrorAlert();
+            }
+        });
+    });
     //
     // $('.t_btn10').click(function () {
     //     $('.center_text').css('display', 'none');
