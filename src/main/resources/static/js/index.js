@@ -533,24 +533,24 @@ $(function () {
                 x: "left"
             },
             toolbox: {
-                show: false,
+                show: true,
                 feature: {
                     mark: {
-                        show: true
+                        show: false
                     },
                     dataView: {
-                        show: true,
-                        readOnly: true
+                        show: false,
+                        readOnly: false
                     },
                     magicType: {
-                        show: false,
+                        show: true,
                         type: ["line", "bar"]
                     },
                     restore: {
-                        show: true
+                        show: false
                     },
                     saveAsImage: {
-                        show: true
+                        show: false
                     }
                 }
             },
@@ -625,24 +625,24 @@ $(function () {
                 x: "left"
             },
             toolbox: {
-                show: false,
+                show: true,
                 feature: {
                     mark: {
-                        show: true
+                        show: false
                     },
                     dataView: {
-                        show: true,
-                        readOnly: true
+                        show: false,
+                        readOnly: false
                     },
                     magicType: {
-                        show: false,
+                        show: true,
                         type: ["line", "bar"]
                     },
                     restore: {
-                        show: true
+                        show: false
                     },
                     saveAsImage: {
-                        show: true
+                        show: false
                     }
                 }
             },
@@ -707,24 +707,24 @@ $(function () {
                 x: "left"
             },
             toolbox: {
-                show: false,
+                show: true,
                 feature: {
                     mark: {
-                        show: true
+                        show: false
                     },
                     dataView: {
-                        show: true,
-                        readOnly: true
+                        show: false,
+                        readOnly: false
                     },
                     magicType: {
-                        show: false,
+                        show: true,
                         type: ["line", "bar"]
                     },
                     restore: {
-                        show: true
+                        show: false
                     },
                     saveAsImage: {
-                        show: true
+                        show: false
                     }
                 }
             },
